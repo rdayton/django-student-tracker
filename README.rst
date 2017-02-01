@@ -2,6 +2,9 @@
 
 **password**: Ge-!Y3L!D83z+.KP
 
+URL Structure
+--------------
+
 URLs that modify the database **end in /** URLs that do not modify the database do not
 
 Settings
