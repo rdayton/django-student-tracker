@@ -1,3 +1,6 @@
+user: trackeruser
+password: Ge-!Y3L!D83z+.KP
+
 Settings
 --------
 
