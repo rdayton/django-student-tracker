@@ -1,7 +1,8 @@
 from selenium import webdriver
 import unittest
+from django.test import LiveServerTestCase
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Chrome()
@@ -11,10 +12,7 @@ class NewVisitorTest(unittest.TestCase):
         return super().tearDown()
 
     def test_can_search(self):
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
 
         self.assertIn('newtracker', self.browser.title)
         self.fail('Finish the test!')
-
-if __name__ == '__main__':
-    unittest.main(warnings='ignore')
