@@ -1,6 +1,6 @@
-user: trackeruser
+**user**: trackeruser
 
-password: Ge-!Y3L!D83z+.KP
+**password**: Ge-!Y3L!D83z+.KP
 
 Settings
 --------
