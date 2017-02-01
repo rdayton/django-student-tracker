@@ -79,3 +79,5 @@ obj
 node_modules
 
 ghostdriver
+
+*.sqlite3

@@ -17,7 +17,8 @@ APPS_DIR = ROOT_DIR.path('newtracker')
 
 env = environ.Env()
 env.read_env(ROOT_DIR('.env'))
-print(env.str('POSTGRES_NAME'))
+print(ROOT_DIR)
+#print(env.str('POSTGRES_NAME'))
 # APP CONFIGURATION
 # ------------------------------------------------------------------------------
 DJANGO_APPS = (
@@ -100,13 +101,19 @@ MANAGERS = ADMINS
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
+             
+    #'default': {
+    #    'ENGINE': 'django.db.backends.postgresql',
+    #    'NAME': env.str('POSTGRES_NAME'),
+    #    'USER': env.str('POSTGRES_USER'),
+    #    'PASSWORD': env.str('POSTGRES_PASSWORD'),
+    #    'HOST': '127.0.0.1',
+    #    'PORT': env.str('POSTGRES_PORT'),
+    #}
+    
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env.str('POSTGRES_NAME'),
-        'USER': env.str('POSTGRES_USER'),
-        'PASSWORD': env.str('POSTGRES_PASSWORD'),
-        'HOST': '127.0.0.1',
-        'PORT': env.str('POSTGRES_PORT'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'dev',
     }
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
