@@ -2,6 +2,11 @@
 
 **password**: Ge-!Y3L!D83z+.KP
 
+URL Structure
+--------------
+
+URLs that modify the database do not **end in a trailing slash /**  URLs that do not modify the database end in a /
+
 Settings
 --------
 
