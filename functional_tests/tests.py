@@ -29,14 +29,13 @@ class FunctionalTest(StaticLiveServerTestCase):
 
 class NewVisitorTest(FunctionalTest):
 
-   
-
     def test_can_search(self):
         self.browser.get(self.server_url)
 
         self.assertIn('newtracker', self.browser.title)
         self.fail('Finish the test!')
 
+class SearchValidationTest(FunctionalTest):
     @skip
     def test_cannot_add_empty_list_items(self):
     # Edith goes to the home page and accidentally tries to submit
