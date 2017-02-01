@@ -5,7 +5,7 @@
 URL Structure
 --------------
 
-URLs that modify the database **end in /** URLs that do not modify the database do not
+URLs that modify the database do not **end in a trailing slash /**  URLs that do not modify the database end in a /
 
 Settings
 --------
