@@ -5,6 +5,7 @@
     <input id="name_input" name="name_input" placeholder="Search"/>
     {% csrf_token %}
 </form>
+{% if users %}
      <div class="table-responsive">
                  
                     <table class="table" id="id_table" data-toggle="table" >
@@ -20,17 +21,19 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% if users %}
+                    
                         {% for user in users %}
                         <tr>
                              <td>{{ user.username }}</td>
                          
                         </tr>
                         {% endfor %}
-                    {% else %}
-                        <tr><td class="has-error">Search field can not be blank</td></tr>
-                    {% endif %}
+                    
                     </tbody>
                     </table>
+                    
                  </div>
+    {% elif request.POST %}
+                        <p class="has-error">Search field can not be blank</p>
+    {% endif %}
 {% endblock content %}
