@@ -30,4 +30,7 @@ class SearchValidationTest(FunctionalTest):
         self.browser.find_element_by_id('name_input').send_keys('Bob'+Keys.ENTER)
         table = self.browser.find_element_by_id('id_table')
         
-        self.assertContains(table, 'GPA')
+        self.assertIn('GPA', table.text)
+        #self.assertIn('School', table.text)
+        #self.assertIn('Major', table.text)
+        #TODO:expand later

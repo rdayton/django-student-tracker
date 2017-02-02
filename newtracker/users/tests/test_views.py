@@ -1,8 +1,9 @@
 from django.test import RequestFactory
 from test_plus.test import TestCase
-from newtracker.users.models import User
+from newtracker.users.models import User, Student
 import unittest
 from newtracker.views import home_page
+from django.db import transaction
 
 from ..views import (
     UserRedirectView,
@@ -10,6 +11,8 @@ from ..views import (
 )
 from django.http.request import HttpRequest
 from django.template.loader import render_to_string
+from _sqlite3 import IntegrityError
+from django.test.testcases import TransactionTestCase
 
 
 class BaseUserTestCase(TestCase):
@@ -67,17 +70,23 @@ class TestUserUpdateView(BaseUserTestCase):
             self.user
         )
 
-class TestUserSave(BaseUserTestCase):
+class TestStudentCreation(BaseUserTestCase, TransactionTestCase):
     def test_user_gets_saved(self):
-        request = HttpRequest()
-        request.method = 'POST'
-        request.POST['name_input'] = 'Bob'
+        name= 'Bob'
+        gpa = 4.0
+        grade = 11
+        user = User.objects.create(first_name=name)
+        user.save()
         
-        response = home_page(request)
-        users = User.objects.all()
-        self.assertEqual(users.count(),2)
+        try:
+            with transaction.atomic():
+                student = Student.objects.create(user=user, gpa=gpa,grade_level=grade)
+                student.save()
+                self.assertEqual(Student.objects.all().count(), 1)
+        except IntegrityError:
+            user.delete()
         
-        self.assertIn('Bob', response.content.decode())
+        
         
         #TODO: Possibly doesn't load stylesheets, check later
         #expected_html = render_to_string('pages/home.html', {'name_input':'Bob'})
