@@ -1,6 +1,7 @@
 from django.test import RequestFactory
-
 from test_plus.test import TestCase
+from newtracker.users.models import User
+import unittest
 
 from ..views import (
     UserRedirectView,
@@ -62,3 +63,15 @@ class TestUserUpdateView(BaseUserTestCase):
             self.view.get_object(),
             self.user
         )
+
+class TestUserSave(BaseUserTestCase):
+    def test_user_gets_saved(self):
+        user2 = self.make_user('Bob')
+        user3 = self.make_user('Bob2')
+        users = User.objects.all()
+        self.assertEqual(users.count(),3)
+
+        second_user = users[1]
+        third_user = users[2]
+        self.assertEqual(second_user.username, 'Bob')
+        self.assertEqual(third_user.username, 'Bob2')

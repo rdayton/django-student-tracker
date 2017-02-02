@@ -113,7 +113,7 @@ DATABASES = {
     
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'dev',
+        'NAME': 'dev.sqlite3',
     }
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True

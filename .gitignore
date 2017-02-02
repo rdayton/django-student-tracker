@@ -61,6 +61,7 @@ venv
 venv3
 env
 env3
+venv36
 
 # User-uploaded media
 newtracker/media/

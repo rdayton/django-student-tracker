@@ -1,5 +1,6 @@
 from .base import FunctionalTest
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 
 class NewVisitorTest(FunctionalTest):
 
@@ -23,7 +24,7 @@ class NewVisitorTest(FunctionalTest):
         # "1: Buy peacock feathers" as an item in a to-do list table
         inputbox.send_keys(Keys.ENTER)
 
-        table = self.browser.find_element_by_id('id_list_table')
+        table = self.browser.find_element_by_id('id_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertTrue(
             any(row.text == 'Bob' for row in rows)
