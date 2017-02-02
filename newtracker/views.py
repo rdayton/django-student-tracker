@@ -4,12 +4,14 @@ from newtracker.users.models import User
 
 # Create your views here.
 def home_page(request):
-    if request.method == 'POST':
-        new_name_input = request.POST['name_input']
-        User.objects.create_user(new_name_input)
-        return redirect('/')
+    user = User()
+    name = request.POST.get('name_input','')
+    users = User.objects.filter(username=name)
+    #user.source,created = User.objects.get_or_create( username = request.POST.get('name_input',''))
+    
 
+    allusers = User.objects.all()
 
-    return render(request, 'pages\home.html',{
-        'new_name_input': request.POST.get('name_input',''),
+    return render(request, 'pages/home.html',{
+        'users': users,
     })

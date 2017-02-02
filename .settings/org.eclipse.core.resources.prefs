@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//config/settings/common.py=utf-8
+encoding//config/settings/test.py=utf-8
 encoding//config/urls.py=utf-8
 encoding//newtracker/users/models.py=utf-8
 encoding//newtracker/users/urls.py=utf-8

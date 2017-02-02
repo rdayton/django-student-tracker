@@ -5,6 +5,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import sys
 
 class FunctionalTest(StaticLiveServerTestCase):
+    fixtures = ['user_initial_data.json']
     
     @classmethod
     def setUpClass(cls):

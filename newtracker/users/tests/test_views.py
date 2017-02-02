@@ -2,11 +2,14 @@ from django.test import RequestFactory
 from test_plus.test import TestCase
 from newtracker.users.models import User
 import unittest
+from newtracker.views import home_page
 
 from ..views import (
     UserRedirectView,
     UserUpdateView
 )
+from django.http.request import HttpRequest
+from django.template.loader import render_to_string
 
 
 class BaseUserTestCase(TestCase):
@@ -66,12 +69,16 @@ class TestUserUpdateView(BaseUserTestCase):
 
 class TestUserSave(BaseUserTestCase):
     def test_user_gets_saved(self):
-        user2 = self.make_user('Bob')
-        user3 = self.make_user('Bob2')
+        request = HttpRequest()
+        request.method = 'POST'
+        request.POST['name_input'] = 'Bob'
+        
+        response = home_page(request)
         users = User.objects.all()
-        self.assertEqual(users.count(),3)
-
-        second_user = users[1]
-        third_user = users[2]
-        self.assertEqual(second_user.username, 'Bob')
-        self.assertEqual(third_user.username, 'Bob2')
+        self.assertEqual(users.count(),2)
+        
+        self.assertIn('Bob', response.content.decode())
+        
+        #TODO: Possibly doesn't load stylesheets, check later
+        #expected_html = render_to_string('pages/home.html', {'name_input':'Bob'})
+        #self.assertEqual(response.content.decode(), expected_html)
