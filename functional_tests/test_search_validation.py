@@ -24,3 +24,10 @@ class SearchValidationTest(FunctionalTest):
         # And she can correct it by filling some text in
         self.browser.find_element_by_id('name_input').send_keys('Bob'+Keys.ENTER)
         self.check_for_row_in_table('Bob')
+        
+    def test_proper_columns_displayed(self):
+        self.browser.get(self.server_url)
+        self.browser.find_element_by_id('name_input').send_keys('Bob'+Keys.ENTER)
+        table = self.browser.find_element_by_id('id_table')
+        
+        self.assertContains(table, 'GPA')

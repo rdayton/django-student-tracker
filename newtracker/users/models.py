@@ -23,7 +23,7 @@ class User(AbstractUser):
 
 class Student(models.Model):
     #student_id = models.CharField(max_length=10) 
-    user = models.ForeignKey(User, primary_key=True)   
+    user = models.OneToOneField(User, primary_key=True)   
     #school = models.ForeignKey(School)
     #magnet_program = models.ForeignKey(MagnetProgram, null=True, blank=True)
     major = models.CharField(max_length=30, null=True, blank=True)
