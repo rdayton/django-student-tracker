@@ -2,7 +2,7 @@
 
 {% block content %}
 <form method="post">
-    <input id="name_input" placeholder="Search"/>
+    <input id="name_input" name="name_input" placeholder="Search"/>
     {% csrf_token %}
 </form>
      <div class="table-responsive">
