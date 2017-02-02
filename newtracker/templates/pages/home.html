@@ -27,6 +27,8 @@
                          
                         </tr>
                         {% endfor %}
+                    {% else %}
+                        <tr><td class="has-error">Search field can not be blank</td></tr>
                     {% endif %}
                     </tbody>
                     </table>

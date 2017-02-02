@@ -22,17 +22,10 @@ class NewVisitorTest(FunctionalTest):
         inputbox.send_keys('Bob')
 
         # When she hits enter, the page updates, and now the page lists
-        # "1: Buy peacock feathers" as an item in a to-do list table
+        # the name she was searching for
         inputbox.send_keys(Keys.ENTER)
         time.sleep(2)
-        table = self.browser.find_element_by_id('id_table')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-            any(row.text == 'Bob' for row in rows)
-        )
-
-        # There is still a text box inviting her to add another item. She
-        # enters "Use peacock feathers to make a fly" (Edith is very
-        # methodical)
-        self.fail('Finish the test!')
+        self.check_for_row_in_table('Bob')
+        
+        
 

@@ -28,7 +28,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.quit()
         return super().tearDown()
 
-    def check_for_row_table(self, row_text):
-        table = self.browser.find_element_by_id('id_list_table')
+    def check_for_row_in_table(self, row_text):
+        table = self.browser.find_element_by_id('id_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertIn(row_text, [row.text for row in rows])
