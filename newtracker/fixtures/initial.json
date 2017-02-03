@@ -1,0 +1,65 @@
+[
+{
+    "model": "sessions.session",
+    "pk": "2pzdxs0yi9ym46c707in35ewcklqoid7",
+    "fields": {
+        "session_data": "OGY3ZDYyYzdhM2U4NzI5OWI2MmU3MDMzYjI0NTUzZTJmMjQxZDhkMDp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI4MjA2NzdhMjNlMWIwY2E2MTM5OTM1ODM4MDM2N2VhZDRmMjNlOTcyIn0=",
+        "expire_date": "2017-02-16T21:48:22.389Z"
+    }
+},
+{
+    "model": "sites.site",
+    "pk": 1,
+    "fields": {
+        "domain": "example.com",
+        "name": "newtracker"
+    }
+},
+{
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$30000$ISoaOMF2ILSB$Q3gom+4INDIspVT4k7yoHbt9vUp0tbdmguW1+70xwo0=",
+        "last_login": "2017-02-02T21:48:22.363Z",
+        "is_superuser": true,
+        "username": "rdayton",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2017-02-02T21:48:19.001Z",
+        "name": "",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$30000$77RKerKRbMhw$7P3cFToBwVtgfB56cqWHYxZO0PFzY7Ckv5V4uwrnDKo=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "bob",
+        "first_name": "Robert",
+        "last_name": "Dayton",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2017-02-02T21:49:06Z",
+        "name": "Bob",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.student",
+    "pk": 2,
+    "fields": {
+        "major": "Computer Science",
+        "gpa": "4.00",
+        "grade_level": 11
+    }
+}
+]

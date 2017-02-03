@@ -41,5 +41,5 @@ class Student(models.Model):
     #reviews = models.ManyToManyField(Review, blank=True)
     #tasks = models.ManyToManyField(Task, blank=True)   
     #story = HTMLField(blank=True,null=True)
-    
-   
+    def __str__(self):
+        return self.user.name

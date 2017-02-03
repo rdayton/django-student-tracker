@@ -1,7 +1,6 @@
 from .base import FunctionalTest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import time
 
 class NewVisitorTest(FunctionalTest):
 
@@ -10,22 +9,16 @@ class NewVisitorTest(FunctionalTest):
 
         self.assertIn('newtracker', self.browser.title)
         
-        # She is invited to enter a to-do item straight away
-        inputbox = self.browser.find_element_by_id('name_input')
-        self.assertEqual(
-                inputbox.get_attribute('placeholder'),
-                'Search'
-        )
+        # She is invited to enter a GPA right away
+        inputbox = self.browser.find_element_by_id('gpa_input')        
 
-        # She types "Buy peacock feathers" into a text box (Edith's hobby
-        # is tying fly-fishing lures)
-        inputbox.send_keys('Bob')
+        # She wants to find students with over a 3.0 gpa
+        inputbox.send_keys('3.0')
 
         # When she hits enter, the page updates, and now the page lists
         # the name she was searching for
-        inputbox.send_keys(Keys.ENTER)
-        time.sleep(2)
-        self.check_for_row_in_table('Bob')
+        inputbox.send_keys(Keys.ENTER)       
+        self.check_for_row_in_table(self.student.user.username)
         
         
 

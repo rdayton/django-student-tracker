@@ -3,9 +3,12 @@ import unittest
 from unittest import skip
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import sys
+from model_mommy import mommy
+from newtracker.users.models import Student
 
 class FunctionalTest(StaticLiveServerTestCase):
-    fixtures = ['user_initial_data.json']
+    #fixtures = ['initial.json']
+    #replace fixtures with model_mommy
     
     @classmethod
     def setUpClass(cls):
@@ -21,14 +24,16 @@ class FunctionalTest(StaticLiveServerTestCase):
         if cls.server_url == cls.live_server_url:
             super().tearDownClass()
     
-    def setUp(self):
+    def setUp(self):        
         self.browser = webdriver.Chrome()
+        self.browser.implicitly_wait(3)        
+        self.student = mommy.make('Student', gpa=3.5)
+       # self.student.save()
 
     def tearDown(self):
         self.browser.quit()
         return super().tearDown()
 
     def check_for_row_in_table(self, row_text):
-        table = self.browser.find_element_by_id('id_table')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertIn(row_text, [row.text for row in rows])
+        table = self.browser.find_element_by_id('id_table')          
+        self.assertIn(row_text, table.text)
