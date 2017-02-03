@@ -4,6 +4,8 @@ from newtracker.users.models import User, Student
 import unittest
 from newtracker.views import home_page
 from django.db import transaction
+from model_mommy import mommy
+from django.template.loader import render_to_string
 
 from ..views import (
     UserRedirectView,
@@ -86,8 +88,14 @@ class TestStudentCreation(BaseUserTestCase, TransactionTestCase):
         except IntegrityError:
             user.delete()
         
-        
-        
+class TestGPASearch(TestCase):
+    def test_can_filter_by_gpa(self):
+        student = mommy.make('Student', gpa=4.2)
+        view = HttpRequest()
+        self.factory = RequestFactory()
+        request = self.factory.post('/','gpa_input','4.0')
+
+        view.request = request
+        self.assertIn(student.gpa, render_to_string(view.request))
         #TODO: Possibly doesn't load stylesheets, check later
-        #expected_html = render_to_string('pages/home.html', {'name_input':'Bob'})
-        #self.assertEqual(response.content.decode(), expected_html)
+        
