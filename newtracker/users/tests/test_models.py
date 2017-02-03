@@ -1,6 +1,6 @@
 from test_plus.test import TestCase
-
-
+from model_mommy import mommy
+from newtracker.users.models import Student
 class TestUser(TestCase):
 
     def setUp(self):
@@ -17,3 +17,8 @@ class TestUser(TestCase):
             self.user.get_absolute_url(),
             '/users/testuser/'
         )
+
+    def test_student(self):
+        self.student = mommy.make('Student')
+        firststudent = Student.objects.all().first()
+        self.assertEqual(self.student.__str__(), firststudent.__str__())
