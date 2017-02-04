@@ -78,9 +78,11 @@ staticfiles/
 .vs
 obj
 node_modules
+*.sln
 
 ghostdriver
 
 *.sqlite3
 
 .settings*
+

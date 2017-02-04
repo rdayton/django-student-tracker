@@ -17,7 +17,6 @@ APPS_DIR = ROOT_DIR.path('newtracker')
 
 env = environ.Env()
 env.read_env(ROOT_DIR('.env'))
-print(ROOT_DIR)
 #print(env.str('POSTGRES_NAME'))
 # APP CONFIGURATION
 # ------------------------------------------------------------------------------
