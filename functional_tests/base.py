@@ -5,6 +5,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import sys
 from model_mommy import mommy
 from newtracker.users.models import Student
+from django.conf import settings
 
 class FunctionalTest(StaticLiveServerTestCase):
     #fixtures = ['initial.json']
@@ -24,7 +25,11 @@ class FunctionalTest(StaticLiveServerTestCase):
         if cls.server_url == cls.live_server_url:
             super().tearDownClass()
     
-    def setUp(self):        
+    def setUp(self):      
+        settings.CSRF_COOKIE_SECURE = False
+        settings.SESSION_COOKIE_SECURE = False  
+        settings.SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+        settings.DEBUG = True
         self.browser = webdriver.Chrome()
         self.browser.implicitly_wait(3)        
         self.student = mommy.make('Student', gpa=3.5)
