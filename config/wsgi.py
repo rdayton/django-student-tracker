@@ -14,8 +14,11 @@ framework.
 
 """
 import os
-
+from whitenoise import WhiteNoise
+from config.settings.common import STATIC_ROOT
 from django.core.wsgi import get_wsgi_application
+
+
 if os.environ.get('DJANGO_SETTINGS_MODULE') == 'config.settings.production':
     from raven.contrib.django.raven_compat.middleware.wsgi import Sentry
 
@@ -35,6 +38,9 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
 application = get_wsgi_application()
 if os.environ.get('DJANGO_SETTINGS_MODULE') == 'config.settings.production':
     application = Sentry(application)
+
+if os.environ.get('DJANGO_SETTINGS_MODULE') == 'config.settings.production' or os.environ.get('DJANGO_SETTINGS_MODULE') == 'config.settings.staging':
+    application.add_files(STATIC_ROOT, prefix='more-files/')
 # Apply WSGI middleware here.
 # from helloworld.wsgi import HelloWorldApplication
 # application = HelloWorldApplication(application)
