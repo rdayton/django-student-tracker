@@ -6,6 +6,7 @@ from newtracker.views import home_page
 from django.db import transaction
 from model_mommy import mommy
 from django.template.loader import render_to_string
+from django.test import Client
 
 from ..views import (
     UserRedirectView,
@@ -91,11 +92,14 @@ class TestStudentCreation(BaseUserTestCase, TransactionTestCase):
 class TestGPASearch(TestCase):
     def test_can_filter_by_gpa(self):
         student = mommy.make('Student', gpa=4.2)
-        view = HttpRequest()
-        self.factory = RequestFactory()
-        request = self.factory.post('/','gpa_input','4.0')
+        #view = HttpRequest()
+        #self.factory = RequestFactory()
+        #request = self.factory.post('/','gpa_input','4.0')
+        c = Client()
+        response = c.post('/',{'gpa_input':'4.0'})
 
-        view.request = request
-        self.assertIn(student.gpa, render_to_string(view.request))
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(str(student.gpa), response.content.decode('utf8'))
         #TODO: Possibly doesn't load stylesheets, check later
         
