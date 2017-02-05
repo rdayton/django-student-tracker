@@ -49,7 +49,7 @@ class FunctionalTest(StaticLiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Chrome()
         self.browser.implicitly_wait(2)        
-        self.student = mommy.make('Student', gpa=3.5)
+        #self.student = mommy.make('Student', gpa=3.5)
         #print(self.student)
        # self.student.save()
 
