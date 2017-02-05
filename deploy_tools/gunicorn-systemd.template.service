@@ -1,0 +1,13 @@
+[Unit]
+Description=Gunicorn server for SITENAME
+
+[Service]
+Restart=on-failure
+User=trackeruser
+WorkingDirectory=/var/www/html/django/staging/newtracker
+ExecStart=/var/www/html/django/staging/virtualenv/bin/gunicorn \
+   --bind unix:/tmp/SITENAME.socket \
+   config.wsgi:application
+
+[Install]
+WantedBy=multi-user.target

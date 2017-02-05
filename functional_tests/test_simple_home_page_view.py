@@ -2,10 +2,10 @@ from .base import FunctionalTest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from unittest import skip
-@skip
+import time
 class NewVisitorTest(FunctionalTest):
 
-    @skip
+    
     def test_can_search(self):
         self.browser.get(self.server_url)
 
@@ -20,6 +20,7 @@ class NewVisitorTest(FunctionalTest):
         # When she hits enter, the page updates, and now the page lists
         # the name she was searching for
         inputbox.send_keys(Keys.ENTER)       
+        time.sleep(3)
         self.check_for_row_in_table(self.student.user.username)
         
         
