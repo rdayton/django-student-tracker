@@ -6,6 +6,10 @@ import sys
 from model_mommy import mommy
 from newtracker.users.models import Student
 from django.conf import settings
+from selenium.common.exceptions import WebDriverException
+import time
+
+MAX_WAIT = 5
 
 class FunctionalTest(StaticLiveServerTestCase):
     #fixtures = ['initial.json']
@@ -26,13 +30,20 @@ class FunctionalTest(StaticLiveServerTestCase):
             super().tearDownClass()
     
 
-    def check_for_row_in_table(self, row_text):
-        table = self.browser.find_element_by_id('id_table')          
-        self.assertIn(row_text, table.text)
+    def wait_for_row_in_table(self, row_text):
+        start_time = time.time()
+        while True:
+            try:
+                table = self.browser.find_element_by_id('id_table')          
+                self.assertIn(row_text, table.text)
+                return
+            except (AssertionError, WebDriverException) as e:
+                if time.time() - start_time > MAX_WAIT:
+                   raise e
+                time.sleep(0.1)
     
     def setUp(self):
-        self.browser = webdriver.Chrome()
-        self.browser.implicitly_wait(2)    
+        self.browser = webdriver.Chrome()  
         if 'localhost' in self.server_url:    
             self.student = mommy.make('Student', gpa=3.5)
         #print(self.student)

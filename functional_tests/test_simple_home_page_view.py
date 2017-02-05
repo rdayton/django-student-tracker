@@ -21,7 +21,7 @@ class NewVisitorTest(FunctionalTest):
         # the name she was searching for
         inputbox.send_keys(Keys.ENTER)       
         time.sleep(3)
-        self.check_for_row_in_table(self.student.user.username)
+        self.wait_for_row_in_table(self.student.user.username)
         
         
 

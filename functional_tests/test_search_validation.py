@@ -21,7 +21,7 @@ class SearchValidationTest(FunctionalTest):
         # She tries again with some text for the item, which now works
         self.browser.find_element_by_id('gpa_input').send_keys('3.0'+Keys.ENTER)
         
-        self.check_for_row_in_table(self.student.user.username)
+        self.wait_for_row_in_table(self.student.user.username)
         # Perversely, she now decides to submit a second blank list item
         self.browser.find_element_by_id('gpa_input').send_keys(Keys.ENTER)
         error = self.browser.find_element_by_css_selector('.has-error')
