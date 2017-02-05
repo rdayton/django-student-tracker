@@ -18,14 +18,12 @@ def home_page(request):
     
     if request.method == 'POST':
         form = StudentSearchForm(request.POST)
-        if form.is_valid():            
-            if is_number(gpa):  
-                gpa = float(gpa)
-                #user = User.objects.filter(username = name).first()       
-                students = Student.objects.filter(gpa__gte = gpa)
+        if form.is_valid() and is_number(gpa): 
+            gpa = float(gpa)
+            #user = User.objects.filter(username = name).first()       
+            students = Student.objects.filter(gpa__gte = gpa)
             #user.source,created = User.objects.get_or_create( username = request.POST.get('name_input',''))
-        else:
-            print(form.errors)
+        
 
     return render(request, 'pages/home.html',{
         'students': students, 'form':form,

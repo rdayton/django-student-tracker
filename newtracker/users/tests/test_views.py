@@ -2,11 +2,12 @@ from django.test import RequestFactory
 from test_plus.test import TestCase
 from newtracker.users.models import User, Student
 import unittest
-from newtracker.views import home_page
+from newtracker.views import home_page, is_number
 from django.db import transaction
 from model_mommy import mommy
 from django.template.loader import render_to_string
 from django.test import Client
+from newtracker.users.forms import StudentSearchForm
 
 from ..views import (
     UserRedirectView,
@@ -89,7 +90,16 @@ class TestStudentCreation(BaseUserTestCase, TransactionTestCase):
         except IntegrityError:
             user.delete()
         
+
 class TestGPASearch(TestCase):
+    def setUp(self):
+        self.user = self.make_user()
+        self.factory = RequestFactory()
+
+    def test_home_page_uses_student_search_form(self):
+        response = self.client.get('/')
+        self.assertIsInstance(response.context['form'], StudentSearchForm)
+
     def test_can_filter_by_gpa(self):
         student = mommy.make('Student', gpa=4.2)
         #view = HttpRequest()
@@ -101,5 +111,6 @@ class TestGPASearch(TestCase):
         
         self.assertEqual(response.status_code, 200)
         self.assertIn(str(student.gpa), response.content.decode('utf8'))
-        #TODO: Possibly doesn't load stylesheets, check later
         
+   
+#TOOD: Possibly doesn't load stylesheets, check later        

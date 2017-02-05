@@ -11,3 +11,7 @@ class StudentFormTest(TestCase):
     def test_form_validation_for_blank_items(self):
         form = StudentSearchForm(data={'gpa': ''})
         self.assertFalse(form.is_valid())
+
+    def test_form_valid(self):
+        form = StudentSearchForm(data={'gpa':4.0})
+        self.assertTrue(form.is_valid())
