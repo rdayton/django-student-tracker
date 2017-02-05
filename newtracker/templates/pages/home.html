@@ -1,11 +1,11 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-<form method="post" action="/">
-    <label for="gpa_input">Enter GPA</label>
-    <input id="gpa_input" name="gpa_input" />
-    {% csrf_token %}
-</form>
+<div class="col-md-3">
+{% crispy form %}
+</div>
+<div class="col-md-9"></div>
 {% if students %}
      <div class="table-responsive">
                  
@@ -42,4 +42,5 @@
     {% else %}
                         <p class="has-error">GPA must be a number</p>
     {% endif %}
+</div>
 {% endblock content %}
