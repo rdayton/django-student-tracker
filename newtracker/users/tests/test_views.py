@@ -96,7 +96,7 @@ class TestGPASearch(TestCase):
         #self.factory = RequestFactory()
         #request = self.factory.post('/','gpa_input','4.0')
         c = Client()
-        response = c.post('/',{'gpa_input':'4.0'})
+        response = c.post('/',{'gpa':'4.0'})
 
         
         self.assertEqual(response.status_code, 200)

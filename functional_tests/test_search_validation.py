@@ -12,25 +12,27 @@ class SearchValidationTest(FunctionalTest):
         # Edith goes to the home page and accidentally tries to submit
         # an empty search. She hits Enter on the empty input box
         self.browser.get(self.server_url)
-        self.browser.find_element_by_id('gpa_input').send_keys('\n')
+
+        self.get_gpa_input_box().send_keys('\n')
 
         # The home page refreshes, and there is an error message saying
         # that list items cannot be blank
-        error = self.browser.find_element_by_css_selector('.has-error')
-        self.assertEqual(error.text, "GPA field can not be blank")
+        self.wait_for(lambda: self.browser.find_elements_by_css_selector('#id_gpa:invalid'))
         # She tries again with some text for the item, which now works
-        self.browser.find_element_by_id('gpa_input').send_keys('3.0'+Keys.ENTER)
-        
+        self.get_gpa_input_box().send_keys('3.0'+Keys.ENTER)    
+        self.wait_for(lambda: self.browser.find_elements_by_css_selector('#id_gpa:valid'))    
         self.wait_for_row_in_table(self.student.user.username)
-        # Perversely, she now decides to submit a second blank list item
-        self.browser.find_element_by_id('gpa_input').send_keys(Keys.ENTER)
         
-        self.wait_for(lambda: self.assertEqual(self.browser.find_element_by_css_selector('.has-error').text, "GPA field can not be blank"))
+        # Perversely, she now decides to submit a second blank list item
+        self.get_gpa_input_box().send_keys(Keys.ENTER)
+        self.wait_for(lambda: self.browser.find_elements_by_css_selector('#id_gpa:invalid'))
+        
        
     def test_proper_columns_displayed(self):
         self.browser.get(self.server_url)
 
-        self.browser.find_element_by_id('gpa_input').send_keys('0.1'+Keys.ENTER)
+        self.get_gpa_input_box().send_keys('0.1'+Keys.ENTER)
+        self.wait_for(lambda: self.browser.find_elements_by_css_selector('#id_gpa:valid'))
         table = self.browser.find_element_by_id('id_table')
         
         self.wait_for(lambda: self.assertIn('GPA', table.text))
@@ -42,9 +44,7 @@ class SearchValidationTest(FunctionalTest):
     def test_string_in_gpa_field(self):
         self.browser.get(self.server_url)
         # And she then accidentally enters a username
-        self.browser.find_element_by_id('gpa_input').send_keys('bob'+Keys.ENTER)        
-        error = self.browser.find_element_by_css_selector('.has-error')
-
-        self.wait_for(lambda: self.assertIn(error.text, 'GPA must be a number'))
+        self.get_gpa_input_box().send_keys('bob'+Keys.ENTER)        
+        self.wait_for(lambda: self.browser.find_elements_by_css_selector('#id_gpa:invalid'))
     
         #TODO:expand later

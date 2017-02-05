@@ -51,6 +51,9 @@ class FunctionalTest(StaticLiveServerTestCase):
                     raise e
                 time.sleep(0.1)
     
+    def get_gpa_input_box(self):
+        return self.browser.find_element_by_id('id_gpa')
+    
     def setUp(self):
         self.browser = webdriver.Chrome()  
         if 'localhost' in self.server_url:    

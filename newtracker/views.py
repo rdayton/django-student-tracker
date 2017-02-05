@@ -13,14 +13,20 @@ def is_number(num):
 def home_page(request):
     gpa = None
     students = None
+    gpa = request.POST.get('gpa','')
     form = StudentSearchForm()
-    gpa = request.POST.get('gpa_input','')
-    if is_number(gpa):      
-        gpa = float(request.POST.get('gpa_input',''))
-        #user = User.objects.filter(username = name).first()       
-        students = Student.objects.filter(gpa__gte = gpa)
-    #user.source,created = User.objects.get_or_create( username = request.POST.get('name_input',''))
     
+    if request.method == 'POST':
+        form = StudentSearchForm(request.POST)
+        if form.is_valid():            
+            if is_number(gpa):  
+                gpa = float(gpa)
+                #user = User.objects.filter(username = name).first()       
+                students = Student.objects.filter(gpa__gte = gpa)
+            #user.source,created = User.objects.get_or_create( username = request.POST.get('name_input',''))
+        else:
+            print(form.errors)
+
     return render(request, 'pages/home.html',{
-        'students': students, 'gpa':gpa, 'form':form,
+        'students': students, 'form':form,
     })
