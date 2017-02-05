@@ -24,9 +24,8 @@ class SearchValidationTest(FunctionalTest):
         self.wait_for_row_in_table(self.student.user.username)
         # Perversely, she now decides to submit a second blank list item
         self.browser.find_element_by_id('gpa_input').send_keys(Keys.ENTER)
-        error = self.browser.find_element_by_css_selector('.has-error')
-       
-        self.assertEqual(error.text, "GPA field can not be blank")
+        
+        self.wait_for(lambda: self.assertEqual(self.browser.find_element_by_css_selector('.has-error').text, "GPA field can not be blank"))
        
     def test_proper_columns_displayed(self):
         self.browser.get(self.server_url)
@@ -34,7 +33,7 @@ class SearchValidationTest(FunctionalTest):
         self.browser.find_element_by_id('gpa_input').send_keys('0.1'+Keys.ENTER)
         table = self.browser.find_element_by_id('id_table')
         
-        self.assertIn('GPA', table.text)
+        self.wait_for(lambda: self.assertIn('GPA', table.text))
         #self.assertIn('4.0', table.text)
         #self.assertIn('School', table.text)
         #self.assertIn('Major', table.text)
@@ -46,6 +45,6 @@ class SearchValidationTest(FunctionalTest):
         self.browser.find_element_by_id('gpa_input').send_keys('bob'+Keys.ENTER)        
         error = self.browser.find_element_by_css_selector('.has-error')
 
-        self.assertIn(error.text, 'GPA must be a number')
+        self.wait_for(lambda: self.assertIn(error.text, 'GPA must be a number'))
     
         #TODO:expand later
