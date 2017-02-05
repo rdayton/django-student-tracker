@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form method="post">
+<form method="post" action="/">
     <label for="gpa_input">Enter GPA</label>
     <input id="gpa_input" name="gpa_input" />
     {% csrf_token %}

@@ -7,7 +7,7 @@ from unittest import skip
 
 class SearchValidationTest(FunctionalTest):
     
-    
+   
     def test_cannot_add_empty_field_items(self):
         # Edith goes to the home page and accidentally tries to submit
         # an empty search. She hits Enter on the empty input box
@@ -27,7 +27,7 @@ class SearchValidationTest(FunctionalTest):
         error = self.browser.find_element_by_css_selector('.has-error')
        
         self.assertEqual(error.text, "GPA field can not be blank")
-        
+       
     def test_proper_columns_displayed(self):
         self.browser.get(self.server_url)
 
@@ -38,7 +38,8 @@ class SearchValidationTest(FunctionalTest):
         #self.assertIn('4.0', table.text)
         #self.assertIn('School', table.text)
         #self.assertIn('Major', table.text)
-        #TODO:expand later
+        
+    
     def test_string_in_gpa_field(self):
         self.browser.get(self.server_url)
         # And she then accidentally enters a username
@@ -47,3 +48,4 @@ class SearchValidationTest(FunctionalTest):
 
         self.assertIn(error.text, 'GPA must be a number')
     
+        #TODO:expand later

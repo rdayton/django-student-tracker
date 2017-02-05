@@ -13,6 +13,7 @@ def is_number(num):
 def home_page(request):
     gpa = None
     students = None
+
     gpa = request.POST.get('gpa_input','')
     if is_number(gpa):      
         gpa = float(request.POST.get('gpa_input',''))

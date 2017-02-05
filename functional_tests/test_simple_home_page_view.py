@@ -1,9 +1,11 @@
 from .base import FunctionalTest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
+from unittest import skip
+@skip
 class NewVisitorTest(FunctionalTest):
 
+    @skip
     def test_can_search(self):
         self.browser.get(self.server_url)
 
