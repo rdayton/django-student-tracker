@@ -153,66 +153,39 @@ CACHES = {
 }
 
 '''
-'''
+
 # Sentry Configuration
-SENTRY_DSN = env('DJANGO_SENTRY_DSN')
-SENTRY_CLIENT = env('DJANGO_SENTRY_CLIENT', default='raven.contrib.django.raven_compat.DjangoClient')
+#SENTRY_DSN = env('DJANGO_SENTRY_DSN')
+#SENTRY_CLIENT = env('DJANGO_SENTRY_CLIENT', default='raven.contrib.django.raven_compat.DjangoClient')
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': True,
-    'root': {
-        'level': 'WARNING',
-        'handlers': ['sentry'],
-    },
-    'formatters': {
-        'verbose': {
-            'format': '%(levelname)s %(asctime)s %(module)s '
-                      '%(process)d %(thread)d %(message)s'
-        },
-    },
+    'disable_existing_loggers': False,
     'handlers': {
-        'sentry': {
-            'level': 'ERROR',
-            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
-        },
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-            'formatter': 'verbose'
-        }
+        },
+        'logfile': {
+            'level':'DEBUG',
+            'class':'logging.FileHandler',
+            'filename': BASE_DIR + "/../logfile",
+        },
     },
-    'loggers': {
-        'django.db.backends': {
-            'level': 'ERROR',
-            'handlers': ['console'],
-            'propagate': False,
-        },
-        'raven': {
-            'level': 'DEBUG',
-            'handlers': ['console'],
-            'propagate': False,
-        },
-        'sentry.errors': {
-            'level': 'DEBUG',
-            'handlers': ['console'],
-            'propagate': False,
-        },
-        'django.security.DisallowedHost': {
-            'level': 'ERROR',
-            'handlers': ['console', 'sentry'],
-            'propagate': False,
-        },
+    'root': {
+        'level': 'INFO',
+        'handlers': ['console', 'logfile']
     },
 }
+'''
 SENTRY_CELERY_LOGLEVEL = env.int('DJANGO_SENTRY_LOG_LEVEL', logging.INFO)
 RAVEN_CONFIG = {
     'CELERY_LOGLEVEL': env.int('DJANGO_SENTRY_LOG_LEVEL', logging.INFO),
     'DSN': SENTRY_DSN
 }
-
-# Custom Admin URL, use {% url 'admin:index' %}
-ADMIN_URL = env('DJANGO_ADMIN_URL')
 '''
+# Custom Admin URL, use {% url 'admin:index' %}
+#ADMIN_URL = env('DJANGO_ADMIN_URL')
+
 
 # ------------------------------------------------------------------------------
 # DATABASE CONFIGURATION
@@ -224,18 +197,18 @@ ADMIN_URL = env('DJANGO_ADMIN_URL')
 
 DATABASES = {
              
-    #'default': {
-    #    'ENGINE': 'django.db.backends.postgresql',
-    #    'NAME': env.str('POSTGRES_NAME'),
-    #    'USER': env.str('POSTGRES_USER'),
-    #    'PASSWORD': env.str('POSTGRES_PASSWORD'),
-    #    'HOST': '127.0.0.1',
-    #    'PORT': env.str('POSTGRES_PORT'),
-    #}
-    
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'staging.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env.str('POSTGRES_NAME'),
+        'USER': env.str('POSTGRES_USER'),
+        'PASSWORD': env.str('POSTGRES_PASSWORD'),
+        'HOST': '127.0.0.1',
+        'PORT': env.str('POSTGRES_PORT'),
     }
+    
+    #'default': {
+     #   'ENGINE': 'django.db.backends.sqlite3',
+    #    'NAME': 'staging.sqlite3',
+    #}
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
