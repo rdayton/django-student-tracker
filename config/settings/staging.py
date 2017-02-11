@@ -168,7 +168,7 @@ LOGGING = {
         'logfile': {
             'level':'DEBUG',
             'class':'logging.FileHandler',
-            'filename': ROOT_DIR + "/../logfile",
+            'filename': ROOT_DIR + "/../logs.log",
         },
     },
     'root': {
