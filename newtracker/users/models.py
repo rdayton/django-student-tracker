@@ -42,4 +42,4 @@ class Student(models.Model):
     #tasks = models.ManyToManyField(Task, blank=True)   
     #story = HTMLField(blank=True,null=True)
     def __str__(self):
-        return self.user
+        return self.user.username

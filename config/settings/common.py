@@ -100,6 +100,7 @@ MANAGERS = ADMINS
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
+'''
 DATABASES = {
              
     #'default': {
@@ -117,7 +118,25 @@ DATABASES = {
     }
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
+'''
 
+DATABASES = {
+             
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env.str('POSTGRES_NAME'),
+        'USER': env.str('POSTGRES_USER'),
+        'PASSWORD': env.str('POSTGRES_PASSWORD'),
+        'HOST': '127.0.0.1',
+        'PORT': env.str('POSTGRES_PORT'),
+    }
+    
+    #'default': {
+     #   'ENGINE': 'django.db.backends.sqlite3',
+    #    'NAME': 'staging.sqlite3',
+    #}
+}
+DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 # GENERAL CONFIGURATION
 # ------------------------------------------------------------------------------
