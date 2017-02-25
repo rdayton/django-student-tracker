@@ -8,6 +8,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 from newtracker import views as homepage_views
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     url(r'^$', homepage_views.home_page , name='home'),

@@ -3,14 +3,27 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from unittest import skip
 import time
+from django.contrib import auth
 class NewVisitorTest(FunctionalTest):
 
     
     def test_can_search(self):
-        self.browser.get(self.server_url)
+        self.browser.get(self.server_url)        
+        '''
+        # She is asked to login
+        self.assertIn('login', self.browser.current_url)
 
+        # She enters her information
+        username_input = self.wait_for(lambda: self.browser.find_element_by_id('id_login'))
+        username_input.send_keys('Edith')
+        password_input = self.wait_for(lambda: self.browser.find_element_by_id('id_password'))
+        password_input.send_keys('Edith')
+        password_input.send_keys(Keys.ENTER)   
+        '''
+
+        #She is then sent back to the home page
         self.assertIn('newtracker', self.browser.title)
-        
+        self.assertIn('login', self.browser.current_url)
         # She is invited to enter a GPA right away
         inputbox = self.get_gpa_input_box()        
 

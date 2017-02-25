@@ -4,7 +4,7 @@ from unittest import skip
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import sys
 from model_mommy import mommy
-from newtracker.users.models import Student
+from newtracker.users.models import Student, User
 from django.conf import settings
 from selenium.common.exceptions import WebDriverException
 import time
@@ -71,6 +71,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         #if 'localhost' in self.server_url:    
         #    self.student = mommy.make('Student', gpa=3.5)
         self.student = mommy.make('Student', gpa=3.5)
+        #self.user,self.test = mommy.make('newtracker.users.User', make_m2m=True)
         #print(self.student)
        # self.student.save()
 
