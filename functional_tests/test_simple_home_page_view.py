@@ -7,7 +7,7 @@ from django.contrib import auth
 class NewVisitorTest(FunctionalTest):
 
     
-    def test_can_search(self):
+    def test_can_search_by_gpa(self):
         self.browser.get(self.server_url)        
         '''
         # She is asked to login
@@ -37,4 +37,9 @@ class NewVisitorTest(FunctionalTest):
         self.wait_for_row_in_table(self.student.user.username)
         
         
-
+    def test_can_search_by_major(self):
+        self.browser.get(self.server_url)  
+        # She then tries to search by major 
+        major_field = self.browser.find_element_by_id('id_major')
+        major_field.send_keys('Computer Science'+Keys.ENTER)
+        self.wait_for_row_in_table(self.student.user.username)

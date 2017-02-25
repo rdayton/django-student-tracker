@@ -46,4 +46,10 @@ class Student(models.Model):
     
     @staticmethod
     def get_search_results(**kwargs ):
-        return Student.objects.filter(gpa__gte = kwargs.get('gpa'))
+        query = Student.objects.all()
+        if kwargs.get('gpa'):            
+            query = query.filter(gpa__gte = kwargs.get('gpa'))
+        if kwargs.get('major'):  
+            query = query.filter(major__icontains=kwargs.get('major'))
+            
+        return query

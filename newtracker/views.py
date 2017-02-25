@@ -14,15 +14,15 @@ def home_page(request):
     gpa = None
     students = None
     gpa = request.POST.get('gpa','')
+    major = request.POST.get('major','')
     form = StudentSearchForm()
     
     if request.method == 'POST':
         form = StudentSearchForm(request.POST)
-        if form.is_valid() and is_number(gpa): 
-            gpa = float(gpa)
-            #user = User.objects.filter(username = name).first()       
-            students = Student.get_search_results(gpa=gpa)
-            #user.source,created = User.objects.get_or_create( username = request.POST.get('name_input',''))
+        if form.is_valid():
+            if is_number(gpa): 
+                gpa = float(gpa)   
+            students = Student.get_search_results(gpa=gpa, major=major)
         
 
     return render(request, 'pages/home.html',{

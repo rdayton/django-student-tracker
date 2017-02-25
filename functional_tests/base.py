@@ -12,6 +12,20 @@ import os
 from datetime import datetime
 
 MAX_WAIT = 5
+
+def wait(fn):
+        def modified_fn(*args, **kwargs):  
+            start_time = time.time()
+            while True:
+                try:
+                    return fn(*args, **kwargs)  
+                except (AssertionError, WebDriverException) as e:
+                    if time.time() - start_time > MAX_WAIT:
+                        raise e
+                    time.sleep(0.1)
+        return modified_fn
+
+
 SCREEN_DUMP_LOCATION = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), 'screendumps'
 )
@@ -35,18 +49,27 @@ class FunctionalTest(StaticLiveServerTestCase):
         if not cls.against_staging:
             super().tearDownClass()
     
+    def setUp(self):
+            self.browser = webdriver.Chrome()  
+            #if 'localhost' in self.server_url:    
+            #    self.student = mommy.make('Student', gpa=3.5)
+            self.student = mommy.make('Student', gpa=3.5, major='Computer Science')
+            #self.user,self.test = mommy.make('newtracker.users.User', make_m2m=True)
+            #print(self.student)
+           # self.student.save()
 
-    def wait(fn):
-        def modified_fn(*args, **kwargs):  
-            start_time = time.time()
-            while True:
-                try:
-                    return fn(*args, **kwargs)  
-                except (AssertionError, WebDriverException) as e:
-                    if time.time() - start_time > MAX_WAIT:
-                        raise e
-                    time.sleep(0.1)
-        return modified_fn
+    def tearDown(self):
+        if self._test_has_failed():
+            if not os.path.exists(SCREEN_DUMP_LOCATION):
+                os.makedirs(SCREEN_DUMP_LOCATION)
+            for ix, handle in enumerate(self.browser.window_handles):
+                self._windowid = ix
+                self.browser.switch_to_window(handle)
+                self.take_screenshot()
+                self.dump_html()
+        self.browser.quit()
+        return super().tearDown()
+    
 
     @wait
     def wait_for_row_in_table(self, row_text):
@@ -66,26 +89,7 @@ class FunctionalTest(StaticLiveServerTestCase):
     def get_gpa_input_box(self):
         return self.browser.find_element_by_id('id_gpa')
     
-    def setUp(self):
-        self.browser = webdriver.Chrome()  
-        #if 'localhost' in self.server_url:    
-        #    self.student = mommy.make('Student', gpa=3.5)
-        self.student = mommy.make('Student', gpa=3.5)
-        #self.user,self.test = mommy.make('newtracker.users.User', make_m2m=True)
-        #print(self.student)
-       # self.student.save()
-
-    def tearDown(self):
-        if self._test_has_failed():
-            if not os.path.exists(SCREEN_DUMP_LOCATION):
-                os.makedirs(SCREEN_DUMP_LOCATION)
-            for ix, handle in enumerate(self.browser.window_handles):
-                self._windowid = ix
-                self.browser.switch_to_window(handle)
-                self.take_screenshot()
-                self.dump_html()
-        self.browser.quit()
-        return super().tearDown()
+    
 
     def _test_has_failed(self):
         # slightly obscure but couldn't find a better way!
