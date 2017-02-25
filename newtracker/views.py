@@ -21,7 +21,7 @@ def home_page(request):
         if form.is_valid() and is_number(gpa): 
             gpa = float(gpa)
             #user = User.objects.filter(username = name).first()       
-            students = Student.objects.filter(gpa__gte = gpa)
+            students = Student.get_search_results(gpa=gpa)
             #user.source,created = User.objects.get_or_create( username = request.POST.get('name_input',''))
         
 

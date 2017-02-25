@@ -43,3 +43,7 @@ class Student(models.Model):
     #story = HTMLField(blank=True,null=True)
     def __str__(self):
         return self.user.username
+    
+    @staticmethod
+    def get_search_results(**kwargs ):
+        return Student.objects.filter(gpa__gte = kwargs.get('gpa'))

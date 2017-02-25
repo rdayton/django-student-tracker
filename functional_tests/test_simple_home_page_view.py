@@ -23,7 +23,7 @@ class NewVisitorTest(FunctionalTest):
 
         #She is then sent back to the home page
         self.assertIn('newtracker', self.browser.title)
-        self.assertIn('login', self.browser.current_url)
+        #self.assertIn('login', self.browser.current_url)
         # She is invited to enter a GPA right away
         inputbox = self.get_gpa_input_box()        
 
