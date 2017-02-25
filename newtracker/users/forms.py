@@ -1,7 +1,7 @@
 from django import forms
 from newtracker.users.models import Student
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
+from crispy_forms.layout import Submit, Layout, Fieldset
 from django.core.exceptions import ValidationError
 
 def is_number(num):
@@ -21,6 +21,13 @@ class StudentSearchForm(forms.models.ModelForm):
         self.helper = FormHelper(self)
         self.fields['gpa'].required = False
         # You can dynamically adjust your layout
+        self.helper.layout = Layout(
+        Fieldset(
+            'Search Students',
+            'gpa',
+            'major',            
+            )
+        )
         self.helper.layout.append(Submit('submit', 'Submit', css_class='center-block'))
 
     class Meta:
