@@ -4,18 +4,11 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Fieldset
 from django.core.exceptions import ValidationError
 
-def is_number(num):
-    try:
-        float(num)
-        return True
-    except ValueError:
-        return False
-
 class StudentSearchForm(forms.models.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(StudentSearchForm, self).__init__(*args, **kwargs)
-
+       
         # If you pass FormHelper constructor a form instance
         # It builds a default layout with all its fields
         self.helper = FormHelper(self)
@@ -40,3 +33,11 @@ class StudentSearchForm(forms.models.ModelForm):
         if not (self.cleaned_data.get('gpa') or self.cleaned_data.get('major')):
             raise forms.ValidationError("You must enter at least one field")
         return cleaned_data
+
+class MultiSubmitForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super(MultiSubmitForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+         cleaned_data = super(MultiSubmitForm, self).clean()  
+             

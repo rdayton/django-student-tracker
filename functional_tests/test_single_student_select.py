@@ -1,7 +1,7 @@
 from .base import FunctionalTest
 from selenium.webdriver.common.keys import Keys
 
-class StudentSelectTest(FunctionalTest):
+class SingleStudentSelectTest(FunctionalTest):
 
     def test_student_basketball_view_click(self):
         self.browser.get(self.server_url)

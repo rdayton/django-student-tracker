@@ -53,3 +53,10 @@ class Student(models.Model):
             query = query.filter(major__icontains=kwargs.get('major'))
             
         return query
+
+    @staticmethod
+    def get_students_by_ids(ids):
+        students = []
+        for id in ids:
+            students.append(Student.objects.get(pk=id))
+        return students

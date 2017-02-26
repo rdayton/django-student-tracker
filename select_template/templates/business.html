@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block additional_includes %}
+    {% load staticfiles i18n %}
+    <link rel="stylesheet" type="text/css" href="{% static 'templates.css' %}" />
+{% endblock %}
+
+
+{% block masthead_block %}
+{% endblock %}
+
+
+{% block content %}
+    <!-- Page Content -->
+    <div class="container-fluid business">
+    {%  for student in students %} 
+     <div class="col-md-4 ">
+     <div class="businessCard">
+    {{ student }}
+         <ul class="noDots noPadding smallerFont">           
+            {% if student.school %}
+            <li> School: {{ student.school }} </li>              
+            {% endif %}
+            {% if student.major %}
+            <li>  Major: {{ student.major }} </li>                
+            {% endif %}
+            {% if student.gpa %}
+            <li>  GPA: {{ student.gpa }} </li>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="white">
+    {{ student.story|safe }}
+    </div>
+     <button type="button" class="btn btn-primary btn-lg hidden-print pull-right" data-toggle="modal" data-target="#myModal">Edit Story</button>
+                       
+    
+     
+    </div>
+    
+    
+    {% endfor %}
+    
+    
+    
+                <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        {% if stories %}
+                        Choose a story or enter one below 
+                        <ul class="story-list">
+                        {%  for story in stories  %}
+                            <li>    {{ story|safe }} </li>
+                        {% endfor %} 
+                        </ul>
+        {% endif %}
+       <form method="post" action="./">
+            {% csrf_token %}
+            {{ form.media }}
+            {{ form.as_p }}
+            <p><input type="submit" value="post"></p>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+$('#myModal').appendTo("body"); 
+
+</script>
+{% endblock content %}

@@ -11,3 +11,10 @@ def basketball(request, **kwargs):
 def clean(request, **kwargs):
     student = Student.objects.get(pk=kwargs.get('pk'))
     return render(request, 'clean.html',{ 'pk':kwargs.get('pk'), 'student':student})
+
+def select_multiple_students(request, **kwargs):
+    return render(request, 'multi.html',{ 'pk':kwargs.get('pk')})
+
+def business(request, **kwargs):
+    students = Student.get_students_by_ids(request.session['ids'])
+    return render(request, 'business.html', {'students':students})

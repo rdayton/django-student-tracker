@@ -24,4 +24,16 @@ urlpatterns = [
         name='clean',
        
     ),
+    url(
+        regex=r'^multi/$',
+        view=views.select_multiple_students ,  
+        name='multi',
+       
+    ),
+    url(
+        regex=r'^multi/business/$',
+        view=views.business ,  
+        name='business',
+       
+    ),
     ]

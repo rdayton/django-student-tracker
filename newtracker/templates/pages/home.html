@@ -8,13 +8,15 @@
 </div>
 <div class="col-md-9">
 {% if students %}
+    <form method="POST" action="{% url 'home' %}" id="multi-select">
+         {% csrf_token %}
      <div class="table-responsive">
                  
                     <table class="table" id="id_table" data-toggle="table" >
                     <thead>
                     <tr>
-                        <!-- <th data-field="state" ></th>
-                       <th>Student ID</th> -->
+                        <th data-field="state" >Check</th>
+                     <!--   <th>Student ID</th> -->
                          <th>Name</th>
                     <!--      <th>Pathway</th> -->
                         <th>Major</th>
@@ -27,7 +29,7 @@
                     
                         {% for student in students %}
                         <tr>
-                             
+                            <td><input type="checkbox" id="check-{{student.pk}}" value="{{student.pk}}" name="choices" /></td> 
                             <td>{{ student.user.username }}</td>
                             <td>{{student.major }}</td>
                             <td>{{student.gpa }}</td>
@@ -38,9 +40,9 @@
                     
                     </tbody>
                     </table>
-                    
+                    <input type="submit" id="multi-submit" name="multi-submit" class="btn btn-outline btn-primary btn-lg btn-block medTopMargin" value="Select" />
       </div>    
-    
+    </form>
     {% elif form.errors %}
         <div class="form-group has-error">
             <div class="help-block">{{ form.text.errors }}</div>
