@@ -1,0 +1,151 @@
+﻿{% extends "base.html" %}
+{% block additional_includes %}
+{% load staticfiles i18n %}
+<link rel="stylesheet" type="text/css" href="{% static 'templates.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="basketballFloor template">
+<!-- Full Width Image Header -->
+    <header class="header-image basketballBG">
+        <div class="headline">
+            <div class="container-fluid " >
+                <h1>Most Valuable Player</h1>
+                <h2>If you got the cap space</h2>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Content -->
+    <div class="container-fluid">
+
+        <hr class="featurette-divider">
+
+        <!-- First Featurette -->
+        <div class="featurette" id="about">
+            <img class="featurette-image img-circle img-responsive pull-right col-md-5" src="{% static "bio.jpg" %}" width="500px"/>
+            <h2 class="featurette-heading">Stat Breakdown:<br/>
+                <span class="text-muted">{{ student }}</span>
+            </h2>
+           
+                <div class="lead">
+                    <ul>
+                        {% if student.school %}
+                       <li> School: {{ student.school }} </li>
+                      
+                        {% endif %}
+                        {% if student.major %}
+                      <li>  Major: {{ student.major }} </li>
+                        
+                       {% endif %}
+                        {% if student.gpa %}
+                      <li>  GPA: {{ student.gpa }} </li>
+                        
+                        {% endif %}
+                        {% if student.hobbies %}
+                        <li>Hobbies: 
+                        <ul>
+                        {%  for hobby in student.hobbies.all  %} 
+                            <li>{{ hobby }}</li>
+                        {% endfor %} 
+                        </ul>
+                        </li>
+                       {% endif %}
+                        {% if student.accomplishments %}
+                        <li>Accomplishments: 
+                        {%  for accomplishment in student.accomplishments.all  %}
+                                {{ accomplishment }}
+                        {% endfor %} 
+                        </li>
+                       {% endif %}
+                       {% if student.activities %}
+                       <li> Activities: 
+                        {%  for activity in student.activities.all  %}
+                                {{ activity }}
+                        {% endfor %} 
+                        </li>
+                       {% endif %}
+                        {% if student.interests %}
+                       <li> Interests: 
+                        {%  for interest in student.interests.all  %}
+                                {{ interest }}
+                        {% endfor %} 
+                        </li>
+                        {% endif %}
+                        {% if student.quotes %}
+                        <!-- fix later for more than one quoate-->
+                        <blockquote class="myblockquote leftQuote"><p>{{ student.quotes }}</p>
+                            <footer><cite>{{ student.first_name }}</cite></footer>
+                        </blockquote>
+                       {% endif %}
+                        
+                        {% if student.story %}
+                        <li> {{ student.story|safe }}
+                        </li>
+                        {% endif %}
+                         <button type="button" class="btn btn-primary btn-lg hidden-print" data-toggle="modal" data-target="#myModal">Edit Story</button>
+                    </ul>
+                </div>
+                <!-- Modal -->
+
+      
+            
+            </div>
+
+        <hr class="featurette-divider">
+{% if student.reviews %}
+        <!-- Second Featurette -->
+        <div class="featurette" id="services">
+            <img class="featurette-image img-circle img-responsive pull-left col-md-5" src="{% static "microsoft.jpg" %}" width="500px">
+            <h2 class="featurette-heading">Scouting Report<br/>
+                <span class="text-muted">What the experts are saying:</span>
+            </h2>
+            <p class="lead">
+           
+                
+                 {% for review in student.reviews.all %}
+                <blockquote class='pull-quote rightQuote'>
+                    <p>
+                   
+                    {{ review.description }}
+                   
+                    </p>
+                    <footer><cite>{{ review.reviewer }}</cite></footer>
+                </blockquote>
+                 {% endfor %}
+                           
+               
+            </p>
+            </div>
+
+        <hr class="featurette-divider">
+ {% endif %}  
+    
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">        
+       <form method="post" action="./">
+            {% csrf_token %}
+            {{ form.media }}
+            {{ form.as_p }}
+            <p><input type="submit" name="addstory" value="post"></p>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+$('#myModal').appendTo("body"); 
+
+</script>
+{% endblock content %}

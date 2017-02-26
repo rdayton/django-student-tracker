@@ -53,7 +53,9 @@ class FunctionalTest(StaticLiveServerTestCase):
             self.browser = webdriver.Chrome()  
             #if 'localhost' in self.server_url:    
             #    self.student = mommy.make('Student', gpa=3.5)
-            self.student = mommy.make('Student', gpa=3.5, major='Computer Science')
+            self.student_computer_science = mommy.make('Student', gpa=3.5, major='Computer Science')
+            self.student_mathematics = mommy.make('Student', gpa=4.2, major='Mathematics')
+            self.student_psychology = mommy.make('Student', gpa=3.2, major='Psychology')
             #self.user,self.test = mommy.make('newtracker.users.User', make_m2m=True)
             #print(self.student)
            # self.student.save()

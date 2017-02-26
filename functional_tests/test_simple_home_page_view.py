@@ -34,7 +34,7 @@ class NewVisitorTest(FunctionalTest):
         # the name she was searching for
         inputbox.send_keys(Keys.ENTER)     
         self.wait_for(lambda: self.browser.find_elements_by_css_selector('#id_gpa:valid'))
-        self.wait_for_row_in_table(self.student.user.username)
+        self.wait_for_row_in_table(self.student_computer_science.user.username)
         
         
     def test_can_search_by_major(self):
@@ -42,4 +42,4 @@ class NewVisitorTest(FunctionalTest):
         # She then tries to search by major 
         major_field = self.browser.find_element_by_id('id_major')
         major_field.send_keys('Computer Science'+Keys.ENTER)
-        self.wait_for_row_in_table(self.student.user.username)
+        self.wait_for_row_in_table(self.student_computer_science.user.username)

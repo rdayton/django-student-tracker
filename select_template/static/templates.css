@@ -1,0 +1,90 @@
+.bottomSpace {
+  margin-bottom: 30px; }
+
+.myblockquote {
+  position: relative;
+  width: 300px;
+  padding: 15px 25px 20px;
+  margin-bottom: 30px;
+  font: italic 26px/1.4 Georgia, serif;
+  color: #fff;
+  background: #333; }
+
+.myblockquote:after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 25px;
+  border-width: 30px 30px 0 0;
+  border-style: solid;
+  border-color: #333 transparent;
+  /* css3 extras */
+  -webkit-transform: skewX(-15deg);
+  -moz-transform: skewX(-15deg);
+  -ms-transform: skewX(-15deg);
+  -o-transform: skewX(-15deg);
+  transform: skewX(-15deg); }
+
+cite {
+  margin: 1em 0 0;
+  font-size: 16px;
+  font-weight: normal; }
+
+html {
+  color: #333;
+  background: #d6d6d6; }
+
+.pull-quote {
+  max-width: 300px;
+  padding: 0;
+  font-family: 'PT Serif', serif;
+  font-style: italic;
+  border-left: none; }
+  .pull-quote p {
+    position: relative;
+    margin: 0 10px;
+    padding: 15px 0;
+    font-family: 'PT Serif', serif;
+    font-style: italic;
+    font-size: 24px;
+    font-size: 1.5rem;
+    border-top: 1px solid #8c8c8c;
+    border-bottom: 1px solid #8c8c8c; }
+    .pull-quote p:after {
+      content: '';
+      position: absolute;
+      bottom: -9px;
+      left: 42px;
+      width: 15px;
+      height: 15px;
+      background: white;
+      border-left: 2px solid #8c8c8c;
+      border-bottom: 1px solid #8c8c8c;
+      transform: skew(45deg) rotate(-45deg); }
+  .pull-quote footer {
+    margin: 10px;
+    font-size: 14px;
+    font-size: 0.875rem;
+    line-height: 20px;
+    line-height: 1.25rem;
+    text-align: right; }
+    .pull-quote footer:before {
+      content: '\2014'; }
+
+.rightQuote {
+  margin-left: 59%; }
+
+.leftQuote {
+  margin-left: 20%; }
+
+.basketballBG {
+  background-image: url("/static/basketball.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center; }
+
+.basketballFloor {
+  background-image: url("/static/woodfloor.jpg"); }
+
+.block {display:block}
+/*# sourceMappingURL=templates.css.map */

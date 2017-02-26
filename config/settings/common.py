@@ -47,6 +47,7 @@ THIRD_PARTY_APPS = (
 LOCAL_APPS = (
     # custom users app
     'newtracker.users.apps.UsersConfig',
+    'select_template',
     # Your stuff: custom apps go here
 )
 

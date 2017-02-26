@@ -1,0 +1,1 @@
+﻿{% extends "base.html" %}{% block additional_includes %}{% load staticfiles i18n %}<link rel="stylesheet" type="text/css" href="{% static 'templates.css' %}" />{% endblock %}{% block content %}<div class="row">{% load create_card %}{% create_card pk 'select_template:basketball' 'Basketball' %}{% create_card pk 'select_template:clean' 'Clean' %}</div>{% endblock content %}

@@ -19,7 +19,7 @@
                     <!--      <th>Pathway</th> -->
                         <th>Major</th>
                         <th>GPA</th>
-                      <!-- <th>Link</th> --> 
+                      <th>Link</th> 
                        
                     </tr>
                     </thead>
@@ -31,6 +31,7 @@
                             <td>{{ student.user.username }}</td>
                             <td>{{student.major }}</td>
                             <td>{{student.gpa }}</td>
+                            <td><a id="view-{{student.pk }}" href="{% url 'select_template:select_for_single' pk=student.pk  %}">View</a></td>
                          
                         </tr>
                         {% endfor %}

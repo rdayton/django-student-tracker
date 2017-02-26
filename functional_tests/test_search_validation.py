@@ -21,7 +21,7 @@ class SearchValidationTest(FunctionalTest):
         # She tries again with some text for the item, which now works
         self.get_gpa_input_box().send_keys('3.0'+Keys.ENTER)    
         self.wait_for(lambda: self.browser.find_elements_by_css_selector('#id_gpa:valid'))    
-        self.wait_for_row_in_table(self.student.user.username)
+        self.wait_for_row_in_table(self.student_computer_science.user.username)
         
         # Perversely, she now decides to submit a second blank list item
         self.get_gpa_input_box().send_keys(Keys.ENTER)

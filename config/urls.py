@@ -9,6 +9,7 @@ from django.views.generic import TemplateView
 from django.views import defaults as default_views
 from newtracker import views as homepage_views
 from django.contrib.auth.decorators import login_required
+from select_template import views as select_template_views
 
 urlpatterns = [
     url(r'^$', homepage_views.home_page , name='home'),
@@ -22,7 +23,7 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
 
     # Your stuff: custom urls includes go here
-
+    url(r'^view/', include('select_template.urls', namespace='select_template')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
