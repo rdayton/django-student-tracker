@@ -1,5 +1,8 @@
 /* These styles are generated from project.scss. */
-
+html, 
+body {
+    height: 100vh;
+}
 .alert-debug {
   color: black;
   background-color: white;
