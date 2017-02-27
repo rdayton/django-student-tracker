@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from newtracker.users.forms import StudentSearchForm
+from apps.users.forms import StudentSearchForm
 from crispy_forms.utils import render_crispy_form
 class StudentFormTest(TestCase):
     

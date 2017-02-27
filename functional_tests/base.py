@@ -4,7 +4,7 @@ from unittest import skip
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import sys
 from model_mommy import mommy
-from newtracker.users.models import Student, User
+from apps.users.models import Student, User
 from django.conf import settings
 from selenium.common.exceptions import WebDriverException
 import time

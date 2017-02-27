@@ -1,6 +1,6 @@
 from test_plus.test import TestCase
 from model_mommy import mommy
-from newtracker.users.models import Student, User
+from apps.users.models import Student, User
 from django.core.exceptions import ValidationError
 
 class TestUser(TestCase):

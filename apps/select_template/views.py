@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from newtracker.users.models import Student
+from apps.users.models import Student
 # Create your views here.
 def select_for_single(request, **kwargs):
     return render(request, 'single.html',{ 'pk':kwargs.get('pk')})

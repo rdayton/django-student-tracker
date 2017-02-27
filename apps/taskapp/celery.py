@@ -11,11 +11,11 @@ if not settings.configured:
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.local')  # pragma: no cover
 
 
-app = Celery('newtracker')
+app = Celery('apps')
 
 
 class CeleryConfig(AppConfig):
-    name = 'newtracker.taskapp'
+    name = 'apps.taskapp'
     verbose_name = 'Celery Config'
 
     def ready(self):

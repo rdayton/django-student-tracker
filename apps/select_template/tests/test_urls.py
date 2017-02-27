@@ -1,7 +1,7 @@
 from django.core.urlresolvers import reverse, resolve
 from model_mommy import mommy
 from test_plus.test import TestCase
-from newtracker.users.models import Student
+from apps.users.models import Student
 
 class TestTemplateURLs(TestCase):
     """Test URL patterns."""

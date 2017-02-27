@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from newtracker.users.models import User, Student
-from newtracker.users.forms import StudentSearchForm, MultiSubmitForm
+from apps.users.models import User, Student
+from apps.users.forms import StudentSearchForm, MultiSubmitForm
 def is_number(num):
     try:
         float(num)

@@ -1,5 +1,5 @@
 from django import forms
-from newtracker.users.models import Student
+from apps.users.models import Student
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Fieldset
 from django.core.exceptions import ValidationError

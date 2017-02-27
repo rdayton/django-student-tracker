@@ -1,13 +1,13 @@
 from django.test import RequestFactory
 from test_plus.test import TestCase
-from newtracker.users.models import User, Student
+from apps.users.models import User, Student
 import unittest
-from newtracker.views import home_page, is_number
+from apps.views import home_page, is_number
 from django.db import transaction
 from model_mommy import mommy
 from django.template.loader import render_to_string
 from django.test import Client
-from newtracker.users.forms import StudentSearchForm
+from apps.users.forms import StudentSearchForm
 
 from ..views import (
     UserRedirectView,
