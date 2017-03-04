@@ -25,6 +25,12 @@ urlpatterns = [
        
     ),
     url(
+        regex=r'^plain/(?P<pk>\d+)/$',
+        view=views.plain ,  
+        name='plain',
+       
+    ),
+    url(
         regex=r'^multi/$',
         view=views.select_multiple_students ,  
         name='multi',

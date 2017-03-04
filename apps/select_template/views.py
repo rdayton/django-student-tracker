@@ -12,6 +12,10 @@ def clean(request, **kwargs):
     student = Student.objects.get(pk=kwargs.get('pk'))
     return render(request, 'clean.html',{ 'pk':kwargs.get('pk'), 'student':student})
 
+def plain(request, **kwargs):
+    student = Student.objects.get(pk=kwargs.get('pk'))
+    return render(request, 'plain.html',{ 'pk':kwargs.get('pk'), 'student':student})
+
 def select_multiple_students(request, **kwargs):
     return render(request, 'multi.html',{ 'pk':kwargs.get('pk')})
 

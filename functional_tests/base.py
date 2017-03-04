@@ -4,7 +4,7 @@ from unittest import skip
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import sys
 from model_mommy import mommy
-from apps.users.models import Student, User
+from apps.users.models import Student, User, Activity, AreaOfInterest, Competition, Employee, Employer, FuturePlan, Hobby, MagnetProgram, MiscAccomplishment, Project, Quote, Review, School, Task
 from django.conf import settings
 from selenium.common.exceptions import WebDriverException
 import time
@@ -53,7 +53,27 @@ class FunctionalTest(StaticLiveServerTestCase):
             self.browser = webdriver.Chrome()  
             #if 'localhost' in self.server_url:    
             #    self.student = mommy.make('Student', gpa=3.5)
-            self.student_computer_science = mommy.make('Student', gpa=3.5, major='Computer Science')
+            test_employer = mommy.make('Employer')
+            test_employee = mommy.make('Employee', employer=test_employer)
+            self.student_computer_science = mommy.make('Student', 
+                                                       gpa=3.5, 
+                                                       major='Computer Science',
+                                                       activities= [mommy.make('Activity')], 
+                                                       areas_of_interest= [mommy.make('AreaOfInterest')], 
+                                                       competitions= [mommy.make('Competition')],                                                         
+                                                       employers = [test_employer], 
+                                                       future_plans = [mommy.make('FuturePlan')], 
+                                                       hobbies = [mommy.make('Hobby')], 
+                                                       magnet_program = mommy.make('MagnetProgram'), 
+                                                       accomplishments = [mommy.make('MiscAccomplishment')], 
+                                                       projects = [mommy.make('Project')], 
+                                                       quotes = [mommy.make('Quote')], 
+                                                       reviews = [mommy.make('Review', reviewer=test_employee)], 
+                                                       school = mommy.make('School'), 
+                                                       tasks = [mommy.make('Task', employer=test_employer)],
+                                                       story = 'test story',
+                                                       _fill_optional=True
+                                                       )
             self.student_mathematics = mommy.make('Student', gpa=4.2, major='Mathematics')
             self.student_psychology = mommy.make('Student', gpa=3.2, major='Psychology')
             #self.user,self.test = mommy.make('newtracker.users.User', make_m2m=True)
@@ -77,7 +97,14 @@ class FunctionalTest(StaticLiveServerTestCase):
     def wait_for_row_in_table(self, row_text):
         table = self.browser.find_element_by_id('id_table')          
         self.assertIn(row_text, table.text)
-                
+
+    @wait
+    def check_in_body_text(self, field):        
+        self.assertIn(str(field), self.browser.find_element_by_tag_name('body').text)
+     
+    def check_all_body_text(self, field):
+        for entry in field.all():
+           self.assertIn(str(entry), self.browser.find_element_by_tag_name('body').text)            
     @wait
     def wait_for(self, fn):
         return fn()

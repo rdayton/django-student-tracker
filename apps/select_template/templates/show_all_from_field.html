@@ -1,0 +1,9 @@
+{% if field %}
+    <li>{{ title }}: 
+    <ul>
+    {%  for entry in field.all  %}
+       <li> {{ entry }}</li>
+    {% endfor %} 
+    </ul>
+    </li>
+{% endif %}

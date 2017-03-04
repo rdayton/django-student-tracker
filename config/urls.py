@@ -24,6 +24,7 @@ urlpatterns = [
 
     # Your stuff: custom urls includes go here
     url(r'^view/', include('apps.select_template.urls', namespace='select_template')),
+    url(r'^tinymce/', include('tinymce.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
