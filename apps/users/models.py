@@ -34,6 +34,9 @@ class Quote(models.Model):
 class Activity(models.Model):
     name = models.CharField(max_length=30, default="Not Available")
     description = models.CharField(max_length=150, default="Not Available")
+    #assigned_approver = models.OneToOneField(Teacher, null=True)
+    #approved_by = models.OneToOneField(Teacher, null=True)
+    #approval_date = models.DateTimeField(null=True)
     approved = models.BooleanField(default=False)
     def __str__(self):              # __unicode__ on Python 2
         return self.name
