@@ -22,7 +22,7 @@ def wait(fn):
                 except (AssertionError, WebDriverException) as e:
                     if time.time() - start_time > MAX_WAIT:
                         raise e
-                    time.sleep(0.1)
+                    time.sleep(0.7)
         return modified_fn
 
 
@@ -43,14 +43,17 @@ class FunctionalTest(StaticLiveServerTestCase):
         super().setUpClass()
         cls.against_staging = False
         cls.server_url = cls.live_server_url    
+       # cls.browser = webdriver.Chrome()
     
+       
     @classmethod
     def tearDownClass(cls):
         if not cls.against_staging:
             super().tearDownClass()
-    
+       #     cls.browser.quit()
+   
     def setUp(self):
-            self.browser = webdriver.Chrome()  
+            self.browser = webdriver.Chrome()             
             #if 'localhost' in self.server_url:    
             #    self.student = mommy.make('Student', gpa=3.5)
             test_employer = mommy.make('Employer')
@@ -90,7 +93,7 @@ class FunctionalTest(StaticLiveServerTestCase):
                 self.take_screenshot()
                 self.dump_html()
         self.browser.quit()
-        return super().tearDown()
+        #return super().tearDown()
     
 
     @wait
