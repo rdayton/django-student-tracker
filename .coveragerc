@@ -1,5 +1,4 @@
 [run]
-include = newtracker/*
 omit = *migrations*, *tests*
 plugins =
     django_coverage_plugin
