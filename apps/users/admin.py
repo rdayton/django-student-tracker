@@ -5,9 +5,27 @@ from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
-from .models import User, Student
+from .models import User, Student,Hobby, AreaOfInterest, MiscAccomplishment, Employee, Employer,\
+    Competition, MagnetProgram, FuturePlan, Review, Task, \
+     Project, Activity, School, Quote
 
 admin.site.register(Student)
+admin.site.register(School)
+admin.site.register(Quote)
+admin.site.register(Hobby)
+admin.site.register(MiscAccomplishment)
+admin.site.register(AreaOfInterest)
+admin.site.register(Employee)
+admin.site.register(Employer)
+admin.site.register(Competition)
+admin.site.register(MagnetProgram)
+admin.site.register(FuturePlan)
+admin.site.register(Review)
+admin.site.register(Task)
+#admin.site.register(Teacher)
+#admin.site.register(ProfessionalOfficeEmployee)
+admin.site.register(Project)
+admin.site.register(Activity)
 
 class MyUserChangeForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):

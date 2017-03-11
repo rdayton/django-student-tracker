@@ -121,7 +121,10 @@ class FunctionalTest(StaticLiveServerTestCase):
     def get_gpa_input_box(self):
         return self.browser.find_element_by_id('id_gpa')
     
-    
+    @wait
+    def get_save_story(self):
+        return self.browser.find_element_by_id("save-story")
+        #return self.browser.find_element_by_xpath('//*[@id="save-story"]')
 
     def _test_has_failed(self):
         # slightly obscure but couldn't find a better way!
