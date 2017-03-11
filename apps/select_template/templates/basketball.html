@@ -57,7 +57,8 @@
                             {{ student.story|safe }}
                         </li>
                         {% endif %}
-                         <button id="edit-story-{{ student.pk }}"type="button" class="btn btn-primary btn-lg hidden-print" data-toggle="modal" data-target="#myModal">Edit Story</button>
+                         {% load edit_story_form %}
+                         {% show_modal_button student.pk %}  
                     </ul>
                 </div>
                 <!-- Modal -->
