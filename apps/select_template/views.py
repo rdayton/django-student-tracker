@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from apps.users.models import Student
+from apps.users.models import Student, ActivityStatus
 from apps.select_template.forms import StoryForm
 from django.shortcuts import get_object_or_404
 
@@ -22,7 +22,9 @@ def clean(request, **kwargs):
 
 def plain(request, **kwargs):
     student = Student.objects.get(pk=kwargs.get('pk'))
-    return render(request, 'plain.html',{ 'pk':kwargs.get('pk'), 'student':student})
+    activities = ActivityStatus.get_all_approved_for_student(student)
+    print(activities)
+    return render(request, 'plain.html',{ 'pk':kwargs.get('pk'), 'student':student, 'activities':activities})
 
 def select_multiple_students(request, **kwargs):
     return render(request, 'multi.html',{ 'pk':kwargs.get('pk')})

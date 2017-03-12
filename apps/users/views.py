@@ -5,9 +5,10 @@ from django.core.urlresolvers import reverse
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render
 
-from .models import User
-
+from apps.users.models import User, ActivityStatus, Teacher
+from apps.users.helpers import get_profile_class
 
 class UserDetailView(LoginRequiredMixin, DetailView):
     model = User
@@ -46,3 +47,11 @@ class UserListView(LoginRequiredMixin, ListView):
     # These next two lines tell the view to index lookups by username
     slug_field = 'username'
     slug_url_kwarg = 'username'
+
+def approve(request, **kwargs):
+    profile_class = get_profile_class(request.user)
+    unapproved_activities = ActivityStatus.get_unapproved(profile_class)
+    
+    return render(request, 'approve.html',{ 'unapproved_activities':unapproved_activities })
+
+    

@@ -41,7 +41,7 @@
                         {% load show_all_from_field %}
                         {% show_all_from_field 'Hobbies' student.hobbies %}                      
                         {% show_all_from_field 'Accomplishments' student.accomplishments %}  
-                        {% show_all_from_field 'Activities' student.activities %}                       
+                        {% show_all_from_field 'Activities' student.get_activities %}                       
                         {% show_all_from_field 'Interests' student.areas_of_interest %}
                         {% if student.quotes %}
                             {% for quote in student.quotes.all %}

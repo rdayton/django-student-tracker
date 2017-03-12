@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}Approve{% endblock %}
+
+{% block content %}
+<div class="container">
+     <table class="table table-responsive" id="id_table" data-toggle="table" >
+        <thead>
+        <tr>
+            <th data-field="state" >Check</th>
+            <th>Activity</th>
+            <th>Description</th>
+            <th>Student</th>                            
+        </tr>
+        </thead>
+        <tbody class="table-hover">
+            {% for status in unapproved_activities %}
+                
+                <tr>                   
+                    <td><input type="checkbox" id="check-{{ status.pk }}" ></td>
+                    <td>{{ status.activity }}</td>
+                    <td>{{ status.activity.description }}</td> 
+                    <td>{{ status.student }}</td>
+                </tr>
+               
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock content %}

@@ -7,12 +7,13 @@ from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from .models import User, Student,Hobby, AreaOfInterest, MiscAccomplishment, Employee, Employer,\
     Competition, MagnetProgram, FuturePlan, Review, Task, \
-     Project, Activity, School, Quote, Teacher
+     Project, Activity, School, Quote, Teacher, ActivityStatus
 
 admin.site.register(Student)
 admin.site.register(School)
 admin.site.register(Quote)
 admin.site.register(Hobby)
+admin.site.register(ActivityStatus)
 admin.site.register(MiscAccomplishment)
 admin.site.register(AreaOfInterest)
 admin.site.register(Employee)

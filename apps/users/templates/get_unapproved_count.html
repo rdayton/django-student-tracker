@@ -1,5 +1,5 @@
 {% if count %}
 <li class="nav-item">
-    <a id="unapproved-count" class="nav-link" href="#">{{ count }} <i class="fa fa-bell" aria-hidden="true"></i></a>
+    <a id="unapproved-count" class="nav-link" href="{% url 'users:approve' %}">{{ count }} <i class="fa fa-bell" aria-hidden="true"></i></a>
 </li>
 {% endif %}

@@ -4,7 +4,7 @@ from unittest import skip
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import sys
 from model_mommy import mommy
-from apps.users.models import Student, User, Activity, AreaOfInterest, Competition, Employee, Employer, FuturePlan, Hobby, MagnetProgram, MiscAccomplishment, Project, Quote, Review, School, Task
+from apps.users.models import Student, Teacher, User, Activity, ActivityStatus, AreaOfInterest, Competition, Employee, Employer, FuturePlan, Hobby, MagnetProgram, MiscAccomplishment, Project, Quote, Review, School, Task
 from django.conf import settings
 from selenium.common.exceptions import WebDriverException
 import time
@@ -58,10 +58,14 @@ class FunctionalTest(StaticLiveServerTestCase):
             #    self.student = mommy.make('Student', gpa=3.5)
             test_employer = mommy.make('Employer')
             test_employee = mommy.make('Employee', employer=test_employer)
+            self.teacher_user = User.objects.create_user(username='lbird',
+                                                email='megan@example.com',
+                                                password = 'password#1',
+                                                is_active = True)
+            self.teacher = mommy.make(Teacher, user=self.teacher_user)
             self.student_computer_science = mommy.make('Student', 
                                                        gpa=3.5, 
-                                                       major='Computer Science',
-                                                       activities= [mommy.make('Activity')], 
+                                                       major='Computer Science',                                                      
                                                        areas_of_interest= [mommy.make('AreaOfInterest')], 
                                                        competitions= [mommy.make('Competition')],                                                         
                                                        employers = [test_employer], 
@@ -77,7 +81,11 @@ class FunctionalTest(StaticLiveServerTestCase):
                                                        story = 'test story',
                                                        _fill_optional=True
                                                        )
+
+            self.activity_status = mommy.make(ActivityStatus, assigned_approver=self.teacher, student=self.student_computer_science, approved=False)
+            self.activity = mommy.make(Activity, participants=self.student_computer_science)
             self.student_mathematics = mommy.make('Student', gpa=4.2, major='Mathematics')
+
             self.student_psychology = mommy.make('Student', gpa=3.2, major='Psychology')
             #self.user,self.test = mommy.make('newtracker.users.User', make_m2m=True)
             #print(self.student)

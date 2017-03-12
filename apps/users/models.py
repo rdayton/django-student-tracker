@@ -8,6 +8,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_save
 from tinymce.models import HTMLField
+from django.utils import timezone
 
 @python_2_unicode_compatible
 class User(AbstractUser):
@@ -71,15 +72,6 @@ class Teacher(models.Model):
     def __str__(self):              # __unicode__ on Python 2
         return self.first_name + " " + self.last_name
 
-class Activity(models.Model):
-    name = models.CharField(max_length=30, default="Not Available")
-    description = models.CharField(max_length=150, default="Not Available")
-    assigned_approver = models.OneToOneField(Teacher, related_name='assigned_approver', null=True, blank=True)
-    approved_by = models.OneToOneField(Teacher, related_name='approved_by', null=True, blank=True)
-    approval_date = models.DateTimeField(null=True, blank=True)
-    approved = models.BooleanField(default=False, blank=True)
-    def __str__(self):              # __unicode__ on Python 2
-        return self.name
 
 
 class MiscAccomplishment(models.Model):
@@ -165,7 +157,7 @@ class Student(models.Model):
     gpa = models.DecimalField(max_digits=3, decimal_places=2)
     grade_level = models.IntegerField()
     projects = models.ManyToManyField(Project, blank=True)
-    activities = models.ManyToManyField(Activity, blank=True)
+    #activity_statuses = models.ManyToManyField(ActivityStatus, blank=True)
     hobbies = models.ManyToManyField(Hobby, blank=True)
     quotes = models.ManyToManyField(Quote, blank=True)
     competitions = models.ManyToManyField(Competition, blank=True)
@@ -195,3 +187,33 @@ class Student(models.Model):
         for id in ids:
             students.append(Student.objects.get(pk=id))
         return students
+    '''
+    def get_activities(self):
+        return self.activity_statuses.objects.filter(approval_status=True)
+        '''
+
+class Activity(models.Model):
+    name = models.CharField(max_length=30, default="Not Available")
+    description = models.CharField(max_length=150, default="Not Available")
+    participants = models.ForeignKey(Student, null=True)
+    def __str__(self):              # __unicode__ on Python 2
+        return self.name
+
+class ActivityStatus(models.Model):
+    assigned_approver = models.ForeignKey(Teacher, related_name='assigned_approver', null=True, blank=True, unique=False)
+    approved_by = models.ForeignKey(Teacher, related_name='approved_by', null=True, blank=True, unique=False)
+    approval_date = models.DateTimeField(null=True, blank=True, unique=False)
+    approved = models.BooleanField(default=False, blank=True, unique=False)
+    activity = models.ForeignKey(Activity, unique=False)
+    created_on = models.DateTimeField(default=timezone.now, unique=False)
+    student = models.ForeignKey(Student, null=True, unique=False)
+
+    def get_unapproved(teacher):
+        return ActivityStatus.objects.filter(assigned_approver=teacher, approved=False)
+    
+    @staticmethod
+    def get_all_approved_for_student( student):
+        return ActivityStatus.objects.filter(student=student, approved=True)
+
+    def __str__(self):              # __unicode__ on Python 2
+        return self.activity.name

@@ -60,7 +60,7 @@ class SingleStudentSelectTest(FunctionalTest):
         self.check_in_body_text(self.student_computer_science.student_id)
         self.check_in_body_text(self.student_computer_science.magnet_program) 
         self.check_all_body_text(self.student_computer_science.projects)         
-        self.check_all_body_text(self.student_computer_science.activities) 
+        self.check_all_body_text(self.activity_status.get_all_approved_for_student(self.student_computer_science)) 
         self.check_all_body_text(self.student_computer_science.hobbies)  
         self.check_all_body_text(self.student_computer_science.quotes)  
         self.check_all_body_text(self.student_computer_science.competitions)
