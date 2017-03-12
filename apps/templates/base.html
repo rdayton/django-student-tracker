@@ -1,4 +1,4 @@
-{% load staticfiles i18n %}<!DOCTYPE html>
+﻿{% load staticfiles i18n %}<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -16,7 +16,7 @@
     {% block css %}
     <!-- Latest compiled and minified Bootstrap 4 Alpha 4 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
-
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <!-- Your stuff: Third-party CSS libraries go here -->
     
     <!-- This file stores project-specific CSS -->
@@ -50,7 +50,10 @@
             </ul>
 
             <ul class="nav navbar-nav pull-xs-right">
-              {% if request.user.is_authenticated %}
+              {% if request.user.is_authenticated %}                
+                    {% load display_helpers %}
+                    {% get_unapproved_count request.user %}       
+                
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a>
                 </li>
@@ -87,9 +90,7 @@
 
     {% block modal %}{% endblock modal %}
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+    
     {% block javascript %}
       <!-- Required by Bootstrap v4 Alpha 4 -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>

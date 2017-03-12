@@ -28,7 +28,6 @@ class SingleStudentSelectTest(FunctionalTest):
         self.check_in_body_text(new_story_text)
         
 
-   # @skip('testing other')
     def test_student_clean_view_click(self):
         self.browser.get(self.server_url)
         self.get_gpa_input_box().send_keys('3.0'+Keys.ENTER) 
@@ -43,7 +42,6 @@ class SingleStudentSelectTest(FunctionalTest):
         self.assertIn(str(self.student_computer_science), self.browser.find_element_by_tag_name('body').text)
         self.assertIn(str(self.student_computer_science.gpa), self.browser.find_element_by_tag_name('body').text) 
      
-   # @skip('testing other')
     def test_student_plain_view_click(self):
         self.browser.get(self.server_url)
         self.get_gpa_input_box().send_keys('3.0'+Keys.ENTER) 

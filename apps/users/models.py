@@ -9,6 +9,19 @@ from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_save
 from tinymce.models import HTMLField
 
+@python_2_unicode_compatible
+class User(AbstractUser):
+
+    # First Name and Last Name do not cover name patterns
+    # around the globe.
+    name = models.CharField(_('Name of User'), blank=True, max_length=255)
+
+    def __str__(self):
+        return self.username
+
+    def get_absolute_url(self):
+        return reverse('users:detail', kwargs={'username': self.username})
+
 class Project(models.Model):
     title = models.CharField(max_length=200)
     file = models.FileField(null=True, blank=True)
@@ -30,14 +43,41 @@ class Quote(models.Model):
     def __str__(self):              # __unicode__ on Python 2
         return self.quote
 
+class School(models.Model):
+    name = models.CharField(max_length=40)
+    address = models.CharField(max_length=30)
+    zip = models.CharField(max_length=30)
+    phone_number = models.CharField(max_length=30)
+    website = models.CharField(max_length=30)
+    
+    def __str__(self):              # __unicode__ on Python 2
+        return self.name
+
+class Teacher(models.Model):
+    #user_id = models.OneToOneField(CustomUser, primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    school = models.OneToOneField(School)
+    '''
+    class Meta:
+        permissions = (
+            ("view_task", "Can see available tasks"),
+            ("start_task", "Can start tasks"),
+            ("change_task_status", "Can change the status of tasks"),
+            ("close_task", "Can remove a task by setting its status as closed"),
+        )
+    '''
+    def __str__(self):              # __unicode__ on Python 2
+        return self.first_name + " " + self.last_name
 
 class Activity(models.Model):
     name = models.CharField(max_length=30, default="Not Available")
     description = models.CharField(max_length=150, default="Not Available")
-    #assigned_approver = models.OneToOneField(Teacher, null=True)
-    #approved_by = models.OneToOneField(Teacher, null=True)
-    #approval_date = models.DateTimeField(null=True)
-    approved = models.BooleanField(default=False)
+    assigned_approver = models.OneToOneField(Teacher, related_name='assigned_approver', null=True, blank=True)
+    approved_by = models.OneToOneField(Teacher, related_name='approved_by', null=True, blank=True)
+    approval_date = models.DateTimeField(null=True, blank=True)
+    approved = models.BooleanField(default=False, blank=True)
     def __str__(self):              # __unicode__ on Python 2
         return self.name
 
@@ -78,15 +118,7 @@ class MagnetProgram(models.Model):
         return self.description
 
 
-class School(models.Model):
-    name = models.CharField(max_length=40)
-    address = models.CharField(max_length=30)
-    zip = models.CharField(max_length=30)
-    phone_number = models.CharField(max_length=30)
-    website = models.CharField(max_length=30)
-    
-    def __str__(self):              # __unicode__ on Python 2
-        return self.name
+
 
 
 class Employer(models.Model):
@@ -122,18 +154,7 @@ class Task(models.Model):
         return self.description
 
 
-@python_2_unicode_compatible
-class User(AbstractUser):
 
-    # First Name and Last Name do not cover name patterns
-    # around the globe.
-    name = models.CharField(_('Name of User'), blank=True, max_length=255)
-
-    def __str__(self):
-        return self.username
-
-    def get_absolute_url(self):
-        return reverse('users:detail', kwargs={'username': self.username})
 
 class Student(models.Model):
     student_id = models.CharField(max_length=10, null=True) 

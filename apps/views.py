@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from apps.users.models import User, Student
 from apps.users.forms import StudentSearchForm, MultiSubmitForm
+
+
 def is_number(num):
     try:
         float(num)
@@ -16,7 +18,7 @@ def home_page(request):
     gpa = request.POST.get('gpa','')
     major = request.POST.get('major','')
     form = StudentSearchForm()
-    
+
     if request.method == 'POST':
         if 'submit' in request.POST:
             form = StudentSearchForm(request.POST)
@@ -34,5 +36,5 @@ def home_page(request):
         
 
     return render(request, 'pages/home.html',{
-        'students': students, 'form':form,
+        'students': students, 'form':form, 
     })
