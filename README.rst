@@ -1,10 +1,6 @@
 Must install dev-tools
 
-```
-#!bash
-
 sudo apt install libpq-dev python3-dev
-```
 
 
 **user**: trackeruser
